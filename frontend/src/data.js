@@ -36,7 +36,7 @@ const data = {
         numReviews: 17,
         description: 'high quality product',
       },
-      {
+      { 
         _id: '4',
         name: 'Nike Slim Pant',
         category: 'Pants',

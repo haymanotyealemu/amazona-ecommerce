@@ -17,7 +17,7 @@ function App() {
                         <Link className="brand" to="/">amazona</Link>
                     </div>
                     <div>
-                        <Link to="/cart">
+                        <Link to="/cart"> 
                             Cart
                             {cartItems.length > 0 && (
                                 <span className="badge">{cartItems.length}</span>
