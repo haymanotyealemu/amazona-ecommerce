@@ -1,10 +1,10 @@
 import express from 'express';
 import data from './data.js';
 import mongoose from 'mongoose';
-import userRouter from './routers/userRouters.js';
-
+import userRouter from './routers/userRouter.js';
+import productRouter from './routers/productRouter.js';
 const app = express();
-mongoose.connect('mongodb://localhost/amazona', {
+mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/amazona',{
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
@@ -12,10 +12,11 @@ mongoose.connect('mongodb://localhost/amazona', {
 app.get('/', (req, res)=> {
     res.send('server is ready');
 });
-app.get('/api/products', (req, res) => {
-    res.send(data.products);
-});
+// app.get('/api/products', (req, res) => {
+//     res.send(data.products);
+// });
 app.use('/api/users', userRouter);
+app.use('/api/products', productRouter);
 app.get('/api/products/:id', (req, res) => {
     const product = data.products.find((x) => x._id === req.params.id);
     if(product){
