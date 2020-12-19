@@ -4,6 +4,10 @@ import data from '../data.js';
 import Product from '../models/productModel.js';
 // import { generateToken, isAdmin, isAuth } from '../utils.js';
 const productRouter = express.Router();
+productRouter.get('/', expressAsyncHandler(async(req, res) => {
+    const products = await Product.find({});
+    res.send(products);
+}));
 
 productRouter.get('/seed', expressAsyncHandler(async(req, res) => {
     // await User.remove({});
@@ -11,8 +15,12 @@ productRouter.get('/seed', expressAsyncHandler(async(req, res) => {
     res.send({createdProducts});
 }));
 productRouter.get('/:id', expressAsyncHandler(async(req, res) => {
-    // await User.remove({});
     const product = await Product.findById(req.params.id);
-    res.send({product });
+    if(product){
+        res.send(product );
+    }
+    else{
+        res.status(404).send({message: 'Product Not Found'});
+    }
 }));
 export default productRouter;
