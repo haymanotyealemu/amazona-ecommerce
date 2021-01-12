@@ -23,6 +23,9 @@ app.get('/', (req, res)=> {
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
 app.use('/api/orders', orderRouter);
+app.get('/api/config/paypal', (req, res) => {
+    res.send(process.env.PAYPAL_CLIENT_ID|| 'sb');
+  });
 // app.get('/api/products/:id', (req, res) => {
 //     const product = data.products.find((x) => x._id === req.params.id);
 //     if(product){
