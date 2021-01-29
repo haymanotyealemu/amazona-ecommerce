@@ -11,7 +11,7 @@ export const generateToken = (user) => {
     },
     process.env.JWT_SECRET || 'somethingsecret',
     {
-      expiresIn: '30d',   // options
+      expiresIn: '60d',   // options
     }
   );
 };
