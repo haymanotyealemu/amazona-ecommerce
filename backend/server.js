@@ -1,8 +1,10 @@
 import express from 'express';
 import data from './data.js';
 import mongoose from 'mongoose';
+import path from 'path';
 import dotenv from 'dotenv';
 import userRouter from './routers/userRouter.js';
+import uploadRouter from './routers/uploadRouter.js';
 import productRouter from './routers/productRouter.js';
 import orderRouter from './routers/orderRouter.js';
 dotenv.config();
@@ -21,11 +23,14 @@ app.get('/', (req, res)=> {
 //     res.send(data.products);
 // });
 app.use('/api/users', userRouter);
+app.use('/api/uploads', uploadRouter);
 app.use('/api/products', productRouter);
 app.use('/api/orders', orderRouter);
 app.get('/api/config/paypal', (req, res) => {
     res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
   });
+  const __dirname = path.resolve();
+  app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 // app.get('/api/products/:id', (req, res) => {
 //     const product = data.products.find((x) => x._id === req.params.id);
 //     if(product){
