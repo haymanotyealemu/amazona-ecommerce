@@ -202,7 +202,7 @@ export default function OrderScreen(props) {
                     Deliver Order
                   </button>
                 </li>
-              )
+              )}
             </ul>
           </div>
         </div>
