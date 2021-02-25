@@ -4,6 +4,9 @@ import {
   ORDER_CREATE_FAIL,
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_SUCCESS,
+  ORDER_DELETE_FAIL,
+  ORDER_DELETE_REQUEST,
+  ORDER_DELETE_SUCCESS,
   ORDER_DETAILS_FAIL,
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
@@ -117,5 +120,24 @@ export const detailsOrder = (orderId) => async (dispatch, getState) => {
           ? error.response.data.message
           : error.message;
       dispatch({ type: ORDER_LIST_FAIL, payload: message });
+    }
+  };
+  export const deleteOrder = (orderId) => async (dispatch, getState) => {
+    dispatch({ type: ORDER_DELETE_REQUEST });
+    const {
+      userSignin: { userInfo },
+    } = getState();
+    try {
+      const { data } = await Axios.delete(`api/orders/${orderId}`, {
+        headers: { Authorization: `Bearer ${userInfo.token}` }, // options
+      });
+      console.log(data);
+      dispatch({ type: ORDER_DELETE_SUCCESS, payload: data });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      dispatch({ type: ORDER_DELETE_FAIL, payload: message });
     }
   };
