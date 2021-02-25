@@ -48,6 +48,7 @@ orderRouter.get(
       }
     })
   );
+  
   orderRouter.put(
     '/:id/pay',
     isAuth,
@@ -62,6 +63,21 @@ orderRouter.get(
         }
         const updatedOrder = await order.save();
         res.send({ message: 'Order Paid', order: updatedOrder });
+      }
+      else {
+        res.status(404).send({ message: 'Order Not Found' });
+      }
+    })
+  );
+
+  orderRouter.put(
+    '/:id/deliver',
+    isAuth, isAdmin,
+    expressAsyncHandler(async (req, res) => {
+      const order = await Order.findById(req.params.id);
+      if (order) {
+        const updatedOrder = await order.save();
+        res.send({ message: 'Order Deliver', order: updatedOrder });
       }
       else {
         res.status(404).send({ message: 'Order Not Found' });
