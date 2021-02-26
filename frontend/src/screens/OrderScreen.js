@@ -55,7 +55,7 @@ export default function OrderScreen(props) {
           }
       }
       
-  }, [dispatch, orderId, order, sdkReady,successPay, successDeliver, order]);
+  }, [dispatch, orderId, order, sdkReady,successPay, successDeliver]);
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(order, paymentResult)); // payment result here is the payment result from paypal
   };
