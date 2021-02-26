@@ -16,9 +16,9 @@ mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/amazona',{
     useUnifiedTopology: true,
     useCreateIndex: true
 })
-app.get('/', (req, res)=> {
-    res.send('server is ready');
-});
+// app.get('/', (req, res)=> {
+//     res.send('server is ready');
+// });
 // app.get('/api/products', (req, res) => {
 //     res.send(data.products);
 // });
@@ -30,7 +30,11 @@ app.get('/api/config/paypal', (req, res) => {
     res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
   });
   const __dirname = path.resolve();
-  app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
+  app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+  app.use(express.static(path.join(__dirname, '/frontend/build')));
+app.get('*', (req, res) =>
+  res.sendFile(path.join(__dirname, '/frontend/build/index.html'))
+);
 // app.get('/api/products/:id', (req, res) => {
 //     const product = data.products.find((x) => x._id === req.params.id);
 //     if(product){
